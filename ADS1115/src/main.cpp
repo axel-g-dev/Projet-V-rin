@@ -36,12 +36,14 @@ numCapteur = ads.readADC_SingleEnded(0); // Lire la valeur du canal en mode comm
 
 Voltage = (numCapteur* 4.096) / 32767; // formule à modifier en fonction du gain choisi
 
+Serial.println("------------------------");
 Serial.print("AIN0: "); 
-Serial.println(numCapteur);
+//Serial.println(numCapteur);
 Serial.print("Voltage: ");
 Serial.println(Voltage, 7); 
-
-/*Serial.println("Valeur numérique :");
+  
+Serial.println("------------------------");
+Serial.println("Valeur numérique :");
   Serial.println(numCapteur);
   Serial.println("Distance (cm) :");  
   // Équation du système : 62,9 + -0,0145x + 1,65E-06x^2 + -9,32E-11x^3 + 2,05E-15x^4
@@ -52,9 +54,10 @@ Serial.println(Voltage, 7);
                     + 2.05e-15 * pow(numCapteur, 4);
 
   Serial.println(Distance);
-  Serial.println("---");*/
+  Serial.println("------------------------");
 
 
   delay(1000);
 
 }
+
