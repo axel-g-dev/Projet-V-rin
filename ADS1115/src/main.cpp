@@ -44,20 +44,20 @@ Serial.println(Voltage, 7);
   
 Serial.println("------------------------");
 Serial.println("Valeur numérique :");
-  Serial.println(numCapteur);
-  Serial.println("Distance (cm) :");  
-  // Équation du système : 62,9 + -0,0145x + 1,65E-06x^2 + -9,32E-11x^3 + 2,05E-15x^4
-  Distance = 62.9
+Serial.println(numCapteur);
+Serial.println("Distance (cm) :");  
+// Équation du système : 62,9 + -0,0145x + 1,65E-06x^2 + -9,32E-11x^3 + 2,05E-15x^4
+Distance = 62.9
                     - 0.0145 * numCapteur
                     + 1.65e-06 * pow(numCapteur, 2)
                     - 9.32e-11 * pow(numCapteur, 3)
                     + 2.05e-15 * pow(numCapteur, 4);
 
-  Serial.println(Distance);
-  Serial.println("------------------------");
+Serial.println(Distance);
+Serial.println("------------------------");
 
-
-  delay(1000);
+delay(1000);
 
 }
+
 
