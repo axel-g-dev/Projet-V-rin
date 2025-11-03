@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Diagramme de Gantt – Projet ESP32 & Vérin</title>
+<style>
+  body {
+    font-family: "Segoe UI", Roboto, sans-serif;
+    margin: 40px;
+    background-color: #f9fafc;
+    color: #2c3e50;
+  }
+
+  h1 {
+    text-align: center;
+    color: #1a5276;
+    margin-bottom: 5px;
+  }
+
+  h3 {
+    text-align: center;
+    color: #7f8c8d;
+    margin-bottom: 30px;
+    font-weight: 400;
+  }
+
+  /* Barre de progression globale */
+  .progress-container {
+    width: 80%;
+    margin: 0 auto 40px auto;
+    background-color: #eaecee;
+    border-radius: 20px;
+    height: 25px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #5dade2, #48c9b0);
+    border-radius: 20px;
+    transition: width 1s ease-in-out;
+  }
+  .progress-text {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  /* Conteneur principal */
+  .gantt-container {
+    width: 95%;
+    margin: auto;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    overflow-x: auto;
+    position: relative;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    position: relative;
+  }
+
+  thead {
+    background-color: #ecf0f1;
+  }
+
+  th, td {
+    text-align: center;
+    padding: 12px;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  th {
+    font-weight: 600;
+    color: #2c3e50;
+    position: relative;
+    z-index: 2;
+  }
+
+  .task {
+    text-align: left;
+    padding-left: 15px;
+    font-weight: 500;
+  }
+
+  /* Couleurs pastel harmonisées */
+  .noa { background: linear-gradient(90deg, #85c1e9, #aed6f1); }
+  .axel { background: linear-gradient(90deg, #82e0aa, #abebc6); }
+
+  .bar {
+    height: 22px;
+    border-radius: 5px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .bar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+
+  /* Bande verticale pour la semaine actuelle */
+  .current-week-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #f5b041;
+    z-index: 1;
+    transition: left 0.3s ease;
+  }
+
+  /* Lignes alternées */
+  tbody tr:nth-child(even) {
+    background-color: #fafafa;
+  }
+
+  /* Légende */
+  .legend {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    font-size: 14px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    margin: 0 20px;
+  }
+
+  .legend-color {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    border-radius: 3px;
+  }
+
+  /* Vacances */
+  .vacances {
+    background-color: #fce4ec;
+    color: #c2185b;
+    font-style: italic;
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+
+<h1>Diagramme de Gantt – Projet ESP32 & Vérin</h1>
+<h3>Période : novembre 2025 → janvier 2026</h3>
+
+<!-- Barre de progression -->
+<div class="progress-text" id="progress-text">Avancement global : 0%</div>
+<div class="progress-container">
+  <div class="progress-bar" id="progress-bar"></div>
+</div>
+
+<div class="gantt-container">
+  <div class="current-week-line" id="current-week-line"></div>
+  <table id="gantt">
+    <thead>
+      <tr>
+        <th>Tâche</th>
+        <th>Responsable</th>
+        <th>S1<br><small>10–17 nov.</small></th>
+        <th>S2<br><small>17–24 nov.</small></th>
+        <th>S3<br><small>24 nov.–1 déc.</small></th>
+        <th>S4<br><small>1–8 déc.</small></th>
+        <th>S5<br><small>8–15 déc.</small></th>
+        <th>Vacances<br><small>15 déc.–5 janv.</small></th>
+        <th>S6<br><small>5–12 janv.</small></th>
+        <th>S7<br><small>12–19 janv.</small></th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <!-- Noa -->
+      <tr>
+        <td class="task">Création de la page Web (Chart.js)</td>
+        <td>Noa</td>
+        <td class="noa bar"></td>
+        <td class="noa bar"></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+
+      <tr>
+        <td class="task">Tests du programme (ESP32 / affichage)</td>
+        <td>Noa</td>
+        <td></td><td></td><td class="noa bar"></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+
+      <tr>
+        <td class="task">Intégration sur ESP32</td>
+        <td>Noa</td>
+        <td></td><td></td><td></td><td class="noa bar"></td>
+        <td class="noa bar"></td><td></td><td></td><td></td>
+      </tr>
+
+      <tr>
+        <td class="task">Création des fiches recette & protocoles</td>
+        <td>Noa</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td class="noa bar"></td>
+        <td class="noa bar"></td>
+      </tr>
+
+      <!-- Axel -->
+      <tr>
+        <td class="task">Intégration du pont en H dans le programme</td>
+        <td>Axel</td>
+        <td class="axel bar"></td>
+        <td class="axel bar"></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+
+      <tr>
+        <td class="task">Tests du programme (mouvement du vérin)</td>
+        <td>Axel</td>
+        <td></td><td></td><td class="axel bar"></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+
+      <tr>
+        <td class="task">Saisie de la distance par l’utilisateur (cm)</td>
+        <td>Axel</td>
+        <td></td><td></td><td></td><td class="axel bar"></td>
+        <td class="axel bar"></td><td></td><td></td><td></td>
+      </tr>
+
+      <tr>
+        <td class="task">Création des fiches recette & protocoles</td>
+        <td>Axel</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td class="axel bar"></td>
+        <td class="axel bar"></td>
+      </tr>
+
+      <!-- Ligne Vacances -->
+      <tr class="vacances">
+        <td colspan="10">Vacances de Noël : du 15 décembre 2025 au 5 janvier 2026 🎄</td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+
+<!-- Légende -->
+<div class="legend">
+  <div class="legend-item">
+    <div class="legend-color" style="background:linear-gradient(90deg,#85c1e9,#aed6f1);"></div> Noa
+  </div>
+  <div class="legend-item">
+    <div class="legend-color" style="background:linear-gradient(90deg,#82e0aa,#abebc6);"></div> Axel
+  </div>
+</div>
+
+<script>
+  // --- Configuration des semaines ---
+  const weeks = [
+    { start: new Date("2025-11-10"), end: new Date("2025-11-17") }, // S1
+    { start: new Date("2025-11-17"), end: new Date("2025-11-24") }, // S2
+    { start: new Date("2025-11-24"), end: new Date("2025-12-01") }, // S3
+    { start: new Date("2025-12-01"), end: new Date("2025-12-08") }, // S4
+    { start: new Date("2025-12-08"), end: new Date("2025-12-15") }, // S5
+    { start: new Date("2026-01-05"), end: new Date("2026-01-12") }, // S6
+    { start: new Date("2026-01-12"), end: new Date("2026-01-19") }  // S7
+  ];
+
+  const today = new Date();
+  const currentLine = document.getElementById("current-week-line");
+  const table = document.querySelector("#gantt table");
+
+  // Positionner la bande verticale sur la semaine actuelle
+  const weekHeaders = document.querySelectorAll("thead th");
+  weeks.forEach((w, i) => {
+    if (today >= w.start && today < w.end) {
+      const cell = weekHeaders[i + 2]; // +2 pour ignorer les 2 premières colonnes
+      const cellRect = cell.getBoundingClientRect();
+      const tableRect = table.getBoundingClientRect();
+      currentLine.style.left = (cell.offsetLeft + cell.offsetWidth / 2) + "px";
+    }
+  });
+
+  // --- Barre de progression globale ---
+  const progressBar = document.getElementById("progress-bar");
+  const progressText = document.getElementById("progress-text");
+
+  const projectStart = new Date("2025-11-10");
+  const projectEnd = new Date("2026-01-19");
+  const totalDuration = projectEnd - projectStart;
+  const elapsed = Math.min(Math.max(today - projectStart, 0), totalDuration);
+  const progress = Math.round((elapsed / totalDuration) * 100);
+
+  progressBar.style.width = progress + "%";
+  progressText.textContent = "Avancement global : " + progress + "%";
+</script>
+
+</body>
+</html>
