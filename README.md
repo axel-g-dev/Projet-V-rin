@@ -1,12 +1,12 @@
 # **Projet – Vérin**
 
-### 🎯 **Objectif du diaporama**
+###  **Objectif du diaporama**
 
 Présenter le fonctionnement complet du système de mesure et de commande du vérin.
 
 ---
 
-### 📑 **Contenu du diaporama**
+###  **Contenu du diaporama**
 
 * **Présentation du capteur de distance**
   Description du principe de fonctionnement et des caractéristiques techniques.
@@ -20,7 +20,7 @@ Présenter le fonctionnement complet du système de mesure et de commande du vé
 
 * **Résultats obtenus**
   Analyse des mesures et affichage graphique de l’évolution de la distance à l’aide de **Chart.js**
-  🔗 [https://www.chartjs.org/](https://www.chartjs.org/)
+  -> [https://www.chartjs.org/](https://www.chartjs.org/)
 
 * **Commande du vérin**
   Utilisation du **pont en H L298N** comme variateur pour piloter le vérin.
