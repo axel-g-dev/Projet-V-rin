@@ -2,7 +2,7 @@
 
 ##  **Objectif du diaporama**
 
-Présenter le fonctionnement complet du système de mesure et de commande du vérin.
+Présenter le fonctionnement complet du système de mesure et de commande du vérin, ainsi que les avancées du projet.
 
 
 ###  **Contenu du diaporama**
