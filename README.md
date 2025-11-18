@@ -1,10 +1,9 @@
 # **Projet – Vérin**
 
-###  **Objectif du diaporama**
+##  **Objectif du diaporama**
 
 Présenter le fonctionnement complet du système de mesure et de commande du vérin.
 
----
 
 ###  **Contenu du diaporama**
 
