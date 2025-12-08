@@ -1,5 +1,3 @@
-Voici la documentation technique du firmware de contrôle de vérin sur ESP32.
-
 ## 1. Description Générale
 Système d’asservissement de position pour un actionneur linéaire (vérin). Le système lit la position via un capteur analogique (ADS1115), la filtre, calcule l'erreur par rapport à une consigne reçue via une interface Web, et pilote le moteur via un pont en H (L298N) avec une régulation proportionnelle.
 
@@ -46,7 +44,14 @@ Système d’asservissement de position pour un actionneur linéaire (vérin). L
 ### A. Acquisition et Traitement du Signal (Boucle Loop)
 1.  **Lecture ADC :** Canal 0 (`AIN0`) de l'ADS1115. Gain `GAIN_ONE` (+/- 4.096V).
 2.  **Conversion Physique :** Transformation de la valeur brute (16-bit) en centimètres via un polynôme de degré 4 :
-    $$Pos = 62.9 - 0.0145x + 1.65e^{-6}x^2 - ...$$
+
+$$Pos(x) = 62,9 - 0,0145x + 1,65 \cdot 10^{-6}x^2 - 9,32 \cdot 10^{-11}x^3 + 2,05 \cdot 10^{-15}x^4$$
+
+**Format Code C++ :**
+
+```cpp
+position_actuelle = 62.9 - 0.0145 * numCapteur + 1.65e-06 * pow(numCapteur, 2) - 9.32e-11 * pow(numCapteur, 3) + 2.05e-15 * pow(numCapteur, 4);
+```
 3.  **Filtrage :** Moyenne glissante sur **10 échantillons**.
     * *Initialisation :* Moyenne cumulative jusqu'au remplissage du tableau.
     * *Régime établi :* Buffer circulaire, somme divisée par 10.
@@ -61,9 +66,6 @@ Le système utilise une régulation proportionnelle avec zone morte.
     * *0.2 cm < Erreur < 3.2 cm :* Vitesse progressive de `pwm_min` (150) à `pwm_max` (255).
     * *Erreur < 0.2 cm :* Arrêt (0).
 
-
-
-[Image of proportional control loop diagram]
 
 
 ### C. Interface Web
